@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ profile.user.username }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-active"><a href="{% url 'home' %}">Home</a></li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Address</th>
+              <th>Contacts</th>
+          </tr>
+      </thead>
+
+      <tbody>
+          <tr>
+             <td>{{ profile.address }}</td>
+             <td>{{ profile.contacts}}</td> 
+          </tr>
+      </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ apply.product }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'product_jobs' apply.group.pk %}">Jobs</a></li>
+  <li class="breadcrumb-item active">{{ apply.product }} : {{ apply.Request_For_Quotation }}</li>
+{% endblock %}
+
+{% block content %}
+ 
+  <form method="POST" enctype="multipart/form-data" novalidate >
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="btn btn-success">APPLY</button>
+  </form>
+{% endblock %}

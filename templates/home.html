@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Home</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table table-condensed table-dark">
+  	<thead class="thead-inverse ">
+  		<tr>
+  			<th>Groups</th>
+  			<th>Jobs</th>
+  			<th>Recent Job</th>
+  		</tr>
+  	</thead>
+
+  	<tbody>
+  		{% for prod in products %}
+  		   <tr>
+  		   	<td>
+  		   		<a href="{% url 'product_jobs' prod.pk %}">{{ prod.name }}</a>
+  		   		<small class="text-muted d-block">{{ prod.description }}</small>
+  		   	</td>
+  		   	<td class="text-center">
+            {{ prod.jobs.count }}  
+          </td>
+  		   	<td class="align-middle">
+             {% with job=prod.get_last_post %}
+                {% if job %}
+                   <small class="text-muted d-block">
+                      By {{ job.client.username }} at {{ job.last_update }}
+                   </small>
+                {% else %}
+                   <small class="text-muted">
+                     <em>No Jobs yet</em>
+                   </small>
+                {% endif %}
+             {% endwith %} 
+              
+          </td>
+  		   </tr>
+  		{% endfor %}
+  	</tbody>
+  </table>
+{% endblock %}

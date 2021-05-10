@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ dec.product }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'product_jobs' dec.group.pk %}">Jobs</a></li>
+  <li class="breadcrumb-item active">{{ dec.product }}</li>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+      <div class="jumbotron text-success">
+          <h4>Client: {{ dec.client }}</h4>
+          <h5>Product: {{ dec.product }}</h5>
+          <h5>RFQ Number: {{ dec.Request_For_Quotation }}</h5>
+          <p>Description: {{ dec.description }}</p>
+      </div>
+      <table class="table table-dark table-hover">
+          <thead class="thead-inverse">
+              <tr>
+                  <th class="text-center">Supplier</th>
+                  <th class="text-center">Zimra(ITF)</th>
+                  <th class="text-center">Praz</th>
+                  <th class="text-center">Documents validity</th>
+                  <th class="text-center">Quotation</th>
+                  
+              </tr>
+          </thead>
+          <tbody>
+            {% for su in apply %}
+            <tr>
+                <td class="text-center"><a href="{% url 'chat' su.pk %}">{{ su.suppliers }}</a></td>
+                {% if su.zimra_date|length_is:"16" or su.zimra_date|length_is:"18" %}
+                  <td class="text-center">{{ su.zimra_date }} - Date
+                    <div>
+                      <button type="button" class="btn btn-outline-light"><a href={{ su.zimra.url }}>View</a></button>
+                    </div>
+                  </td>
+                {% else %}
+                  <td class="text-center">
+                      <em>Document detection failed</em>
+                      <div>
+                        <button type="button" class="btn btn-outline-light"><a href={{ su.zimra.url }}>View</a></button>
+                      </div>
+                  </td>
+                {% endif %}
+
+                {% if su.praz_date|length_is:"10" or su.praz_date|length_is:"12" %}
+                  <td class="text-center">{{ su.praz_date }} - Date
+                    <div>
+                      <button type="button" class="btn btn-outline-light"><a href={{ su.praz.url }}>View</a></button>
+                    </div>
+                  </td>
+                {% else %}
+                  <td class="text-center">
+                    <em>Document detection failed</em>
+                    <div>
+                      <button type="button" class="btn btn-outline-light"><a href={{ su.praz.url }}>View</a></button>
+                    </div>
+                  </td>
+                {% endif %}
+                <td class="text-center">{{ su.doc_validity }}</td>
+                <td class="text-center">
+                  <div>
+                     <button type="button" class="btn btn-outline-light">
+                       <a href="{{ su.quotation.url}}">View Document</a>
+                     </button>
+                  </div>
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+  </div>
+
+
+{% endblock %}

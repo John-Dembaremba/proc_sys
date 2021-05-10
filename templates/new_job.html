@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Post new Job{% endblock %}
+
+{% block breadcrumb %}
+   <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+   <li class="breadcrumb-item"><a href="{% url 'product_jobs' job.pk %}">{{ job.name }}</a></li>
+   <li class="breadcrumb-item active">New Job</li>
+{% endblock %}
+
+{% block content %}
+   <form method="POST" >
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="btn btn-success">Post</button>
+   </form>
+{% endblock %}

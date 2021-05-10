@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ job.name }}-{{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+  <li class="breadcrumb-item active">{{ job.name }}</li>
+{% endblock %}
+
+{% block content %}
+  <div class="mb-4">
+    <a href="{% url 'new_job' job.pk %}" class="btn btn-primary">Post a Job</a>
+  </div>
+  <table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            
+            <th>Jobs</th>
+            <th>Job Status</th>
+            <th>Description</th>
+            <th>Budget</th>
+            <th>Delivary Period</th>
+            <th>Client</th>
+            <th>Applicants</th>
+            <th>Created date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pro in supply %}
+            <tr>
+                {% with prod=pro.get_date_diff %}
+                  {% if prod == True %}
+                    {% if user == pro.client %}
+                       <div class="text-center">
+                         <td class="text-muted">{{ pro.product }}</td>
+                         <td class="text-muted">Can't Apply your Job</td>
+                       </div>
+                    {% else %}
+                      <div class="container">
+                          <td><a href="{% url 'apply_job' job.pk pro.pk %}" title="Click to Apply" data-toggle="popover" data-trigger="hover">{{ pro.product }}</a></td>
+                          <td class="text-muted">Job Open</td>
+                      </div>
+                    {% endif %}
+
+                  {% else %}
+                    <td class="text-muted">{{ pro.product }}</td>
+                    {% if user == pro.client %}
+                      <td class="text-muted">Can't Apply your Job</td>
+                    {% else %}
+                      <td class="text-muted">Apply date expired!</td>
+                    {% endif %}
+                  {% endif %} 
+
+                {% endwith %}
+                <td>{{ pro.description }}</td>
+                <td class="text-center">$ {{ pro.budget }}</td>
+                <td class="text-center">{{ pro.period }} days</td>
+                <td class="text-center">{{ pro.client }}</td>
+                <td class="text-center"><a href="{% url 'decision' job.pk pro.pk %}" title="View Applicants" data-toggle="popover" data-trigger="hover">{{ pro.replies }}</a></td>
+                <td class="text-center">{{ pro.last_update }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}
