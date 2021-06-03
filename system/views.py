@@ -65,7 +65,7 @@ def zimra_validity(file_path):
         end_date = split_str.pop(2) #remove start date leaving end date
   
         try:
-            #date_format = datetime.strptime(end_date, "%m/%d/%Y")
+            
             split_date_list= end_date.split('/')
             current_date = datetime.now()
             current_date_format = current_date.strftime("%m/%d/%Y")

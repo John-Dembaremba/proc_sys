@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #OWN
     'system',
     'accounts',
+    'blockchain',
 ]
 
 MIDDLEWARE = [
