@@ -1,6 +1,6 @@
 # install
 
-Python 3.6.9 
+# Python 3.6.9 
 Django == 3.0.8
 Pillow==7.1.2
 joblib==0.16.0
