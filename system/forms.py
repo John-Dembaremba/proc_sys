@@ -1,6 +1,8 @@
 from django import forms
 from .models import Apply, Jobs
 
+# Class
+
 class ApplyForm(forms.ModelForm):
 	zimra = forms.FileField(
             help_text = 'jpg and jpeg only'
