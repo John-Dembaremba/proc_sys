@@ -31,7 +31,7 @@ jobs:
         python manage.py test
     - name: Run Migrations
       run: |
-        python manage.py makemigartions
+        python manage.py makemigrations
         python manage.py migrate
 
         
