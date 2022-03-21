@@ -74,6 +74,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=75, null=True)
     contacts = models.CharField(max_length=30, null=True)
+    optional_contact  = models.CharField(max_length=30, null=True, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
