@@ -1,6 +1,7 @@
 from django import forms
 from .models import Apply, Jobs
-from pdf2image import convert_from_path, convert_from_bytes
+
+# Class
 
 class ApplyForm(forms.ModelForm):
 	zimra = forms.FileField(
