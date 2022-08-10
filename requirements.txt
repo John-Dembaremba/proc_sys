@@ -6,5 +6,5 @@ pyzbar==0.1.8
 django-betterforms==1.2
 django-crispy-forms==1.9.2
 django-widget-tweaks==1.4.8
-opencv-python==4.2.0.34
+
 pandas
