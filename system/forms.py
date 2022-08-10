@@ -22,15 +22,13 @@ class JobsForm(forms.ModelForm):
 		   attrs={'rows':8, 'placeholder':'Describe Product features'}
 		),
 		 max_length=200)
-	Request_For_Qoutation = forms.CharField(
-          help_text='Insert Request For Qoutation Number'
-		)
-    
+
+
 
 	class Meta:
 		model = Jobs
 		fields = [
-		  'Request_For_Qoutation',
+		  'Request_For_Quotation',
 		  'product',
 		  'description',
 		  'budget',

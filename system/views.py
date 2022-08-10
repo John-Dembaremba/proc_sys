@@ -7,14 +7,14 @@ from django.contrib.auth.decorators import login_required
 from .models import Product, Jobs, Apply, Profile
 from django.views.generic import ListView
 from .forms import JobsForm, ApplyForm
-
-import cv2
-import matplotlib.image as mpimg 
+from matplotlib import image as mpimg
+ 
 import re
 import pyzbar.pyzbar as pyzbar
 from datetime import datetime,  timedelta
 import pandas as pd
 import joblib
+
 # Create your views here.
 
 class ProductListView(ListView):
@@ -195,14 +195,17 @@ def Apply_job_view(request, pk, post_pk):
 def Decision_view(request, pk, post_pk):
     dec = get_object_or_404(Jobs, group__pk=pk, pk=post_pk)
     test = Apply.objects.filter(jobs__product=dec).filter(jobs_id=dec.pk).order_by('doc_validity')
-
+    
     return render(request, 'decision.html', {"dec":dec, "apply":test})
 
 @login_required
 def chat_view(request, pk):
     chat = get_object_or_404(Profile, pk=pk)
     name = Profile.objects.filter(user_id=chat.pk)
+    
+
     return render(request, 'chat.html', {"profile":chat, "name":name})
+
 
 
 
